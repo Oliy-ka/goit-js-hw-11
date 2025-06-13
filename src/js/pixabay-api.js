@@ -7,9 +7,8 @@
 import axios from 'axios';
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-import { createGallery, showLoader, hideLoader } from "./render-functions.js";
 
-const API_KEY = '50806144-c57902bc5e70df58c5637df69';
+const API_KEY = '50843154-75a8c51af40c5c9efbd704511' ;
 
 export function getImagesByQuery(query) {
     const searchParams = new URLSearchParams({
@@ -19,27 +18,18 @@ export function getImagesByQuery(query) {
         orientation: "horizontal",
         safesearch: true,
     });
-    
-    showLoader()
 
-    axios(`https://pixabay.com/api/?${searchParams}`)
+    return axios(`https://pixabay.com/api/?${searchParams}`)
         .then(res => { 
             if (res.data.hits.length === 0) {
-                iziToast.error({
-                    title: 'Error',
-                    message: 'Sorry, there are no images matching your search query. Please try again!',
-                });
-                return;
-            };
+                throw new Error(
+                    'Sorry, there are no images matching your search query. Please try again!'
+                );
+            }
             console.log(res.data.hits);
-            createGallery(res.data.hits);
+            return res.data.hits;
         })
         .catch(error => {
-            console.log(error);
-            iziToast.error({
-                title: 'Error',
-                message: 'An error occurred while fetching images. Please try again later.',
-            });
+            throw error;
         })
-        .finally(() => hideLoader())
 }

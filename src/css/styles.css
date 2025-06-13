@@ -105,6 +105,10 @@ p{
     color: #2e2f42;
 }
 
+.hidden {
+  display: none;
+}
+
 .loader {
   font-size: 10px;
   width: 1em;

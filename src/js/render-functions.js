@@ -68,15 +68,12 @@ export function clearGallery() {
 const loader = document.querySelector(".loader");
 
 export function showLoader() {
-    console.log('Loader SHOWN');
-    loader.classList.add("hidden");
+    loader.classList.remove("hidden");
  };
 
 export function hideLoader() { 
-    console.log('Loader HIDDEN');
-    loader.classList.remove("hidden");
+    loader.classList.add("hidden");
 };
-
 
 
 
